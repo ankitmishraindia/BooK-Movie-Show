@@ -6,14 +6,17 @@ import { Link } from "react-router-dom";
 function MovieList(){
 
     const [movieList,setMovieList]=useState([])
+    const [loading,setLoading]=useState('Loading...')
 
     async function getMovies(){
         try {
                 const res=await axios.get('https://api.tvmaze.com/search/shows?q=all')
             console.log(res.data)
             setMovieList(res.data)
+            setLoading('')
         } catch (error) {
-            console.error("Error fetching data:",error)
+            
+            window.alert(`Error: ${error.message}\nMessage: Please try again.`)
         }
         
 
@@ -25,6 +28,7 @@ function MovieList(){
 
     return(
         <div className="bg-gray-600 min-h-screen p-11 flex items-center justify-center space-y-8 flex-col">
+            {!loading?<>
             <h1 className="text-5xl underline text-white tracking-wider">MOVIE LIST</h1>
             <div className="p-6 flex flex-wrap gap-3 justify-center ">
                 {movieList&&movieList.map((item)=>(
@@ -41,6 +45,8 @@ function MovieList(){
                 ))}
                  
             </div>
+            </>:<p className="text-2xl text-white">{loading}</p>}
+            
         </div>
     )
 }

@@ -7,16 +7,19 @@ function Summary(){
       const {id}=useParams()
 
       const [summary,setSummary]=useState('')
+      const [loading,setLoading]=useState('Loading...')
 
       async function getSummary(){
         try {
               const res=await axios.get(`https://api.tvmaze.com/shows/${id}`)
               console.log(res.data)
               setSummary(res.data)
+              setLoading('')
 
               
         } catch (error) {
-            console.error("summary fetching error:",error)
+            
+            window.alert(`Error: ${error.message}\nMessage: Please try again.`)
         }
       }
       
@@ -31,10 +34,11 @@ function Summary(){
 
     return(
         <div className="bg-gray-600 min-h-screen  flex items-center justify-center relative">
-           <div className="bg-gray-800 text-white p-14 space-y-8 max-w-[700px]">
+            {!loading?<>
+                <div className="bg-gray-800 text-white p-14 space-y-8 max-w-[700px]">
               <h1 className="text-4xl font-semibold text-white tracking-wider underline">Summary</h1>
               <div className="text-2xl tracking-wider" dangerouslySetInnerHTML={{ __html: summary.summary }}></div> 
-              <button onClick={bookShow} className="mx-auto py-2 hover:scale-110 px-5 font-bold text-black bg-white text-sm">BOOK MOVIE SHOW</button>
+              <button onClick={()=>bookShow()} className="mx-auto py-2 hover:scale-110 px-5 font-bold text-black bg-white text-sm">BOOK MOVIE SHOW</button>
            </div>
            <div id="formDiv" className="hidden absolute w-full h-full  items-center justify-center p-8 bg-gray-800">
             <form  action="" className="flex flex-col text-white w-[500px] space-y-3 bg-gray-900  p-8 border border-white rounded-md">
@@ -73,6 +77,8 @@ function Summary(){
                  <button type="submit" className="mx-auto py-2 hover:scale-110 px-5 font-bold text-black bg-white text-sm">BOOK  SHOW</button>
             </form>
            </div>
+            </>:<p className="text-2xl text-white">{loading}</p>}
+           
         </div>
     )
 }
