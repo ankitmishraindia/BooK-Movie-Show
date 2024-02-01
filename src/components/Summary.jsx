@@ -41,7 +41,7 @@ function Summary(){
               <button onClick={()=>bookShow()} className="mx-auto py-2 hover:scale-110 px-5 font-bold text-black bg-white text-sm">BOOK MOVIE SHOW</button>
            </div>
            <div id="formDiv" className="hidden absolute w-full h-full  items-center justify-center p-8 bg-gray-800">
-            <form  action="" className="flex flex-col text-white w-[500px] space-y-3 bg-gray-900  p-8 border border-white rounded-md">
+            <form  action="https://in.bookmyshow.com/explore/home" className="flex flex-col text-white w-[500px] space-y-3 bg-gray-900  p-8 border border-white rounded-md">
                 <label htmlFor="">Movie: <b>{summary.name}</b></label>
                 <label htmlFor="">Language: {summary.language}</label>
                 {summary.genres&&<label htmlFor="">Genre: {summary.genres[0]},{summary.genres[0]}</label>} 
